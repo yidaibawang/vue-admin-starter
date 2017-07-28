@@ -7,9 +7,19 @@ const alert = msg => {
   Vue.prototype.$message.error(msg)
 }
 
+let loadingInstance
+const showLoading = show => {
+  if (show) {
+    loadingInstance = Vue.prototype.$loading({ target: '#content-body', body: true })
+  } else {
+    loadingInstance && loadingInstance.close()
+  }
+}
+
 const handleResponseError = ({ status, data }) => {
   switch (status) {
     case 401:
+    case 403:
       Vue.router.replace('/login')
       break
     case 404:
@@ -41,10 +51,13 @@ const http = axios.create({
 
 http.interceptors.request.use(
   config => {
+    showLoading(true)
+
     const token = store.getToken()
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
+
     return config
   },
   error => {
@@ -54,9 +67,11 @@ http.interceptors.request.use(
 
 http.interceptors.response.use(
   response => {
+    showLoading(false)
     return response
   },
   error => {
+    showLoading(false)
     if (error.response) {
       handleResponseError(error.response)
       return new Promise(() => { })

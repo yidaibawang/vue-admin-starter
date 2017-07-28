@@ -7,7 +7,7 @@
       <el-breadcrumb-item>{{menuName}}</el-breadcrumb-item>
     </el-breadcrumb>
     <transition name="move" mode="out-in">
-      <div class="content-body">
+      <div id="content-body">
         <router-view></router-view>
       </div>
     </transition>
@@ -61,7 +61,7 @@ export default {
   cursor: unset !important;
 }
 
-.content-body {
+#content-body {
   position: absolute;
   left: 250px;
   right: 0;
@@ -71,5 +71,15 @@ export default {
   width: auto;
   box-sizing: border-box;
   overflow-y: scroll;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all .2s ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }
 </style>
