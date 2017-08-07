@@ -2,17 +2,20 @@
   <div class="sidebar">
     <el-menu :default-active="$route.path" theme="dark" unique-opened router>
       <template v-for="(item, index) in routes">
-        <el-submenu v-if="item.name" index="index">
+        <el-submenu v-if="item.name" :index="index+''">
           <template slot="title">
             <i :class="'icon-'+item.icon"></i>{{item.name}}
           </template>
-          <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path">
+          <el-menu-item v-if="!child.hidden" v-for="child in item.children" :index="child.path" :key="child.path">
             {{child.name}}
           </el-menu-item>
         </el-submenu>
-        <el-menu-item v-else v-for="child in item.children" :index="child.path" :key="child.path">
-          <i :class="'icon-'+child.icon"></i> {{child.name}}
-        </el-menu-item>
+        <template v-else>
+          <el-menu-item v-if="!child.hidden" v-for="child in item.children" :index="child.path" :key="child.path">
+            <i :class="'icon-'+child.icon"></i> {{child.name}}
+          </el-menu-item>
+        </template>
+  
       </template>
     </el-menu>
   </div>
@@ -23,12 +26,10 @@ export default {
   computed: {
     routes() {
       return this.$router.options.routes.filter(x => !x.hidden)
-    },
-    mounted() {
-      console.log(this.$router.options.routes)
     }
   }
 }
+
 </script>
 
 <style scoped>

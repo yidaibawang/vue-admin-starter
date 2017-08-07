@@ -25,6 +25,9 @@ export default new Router({
     ]),
     createMenuRoutes([
       { path: '/system', component: createView('System'), name: '参数设置' }
-    ], '系统管理', 'equalizer')
+    ], '系统管理', 'equalizer'),
+    createMenuRoutes([
+      { path: '/data/roleType', component: createView('Home'), name: '用户角色' }
+    ], '数据字典', 'map')
   ]
 })
