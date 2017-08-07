@@ -5,6 +5,7 @@
     <el-breadcrumb separator="/">
       <el-breadcrumb-item v-if="parentMenuName">{{parentMenuName}}</el-breadcrumb-item>
       <el-breadcrumb-item>{{menuName}}</el-breadcrumb-item>
+      <el-button type="text" v-if="currentRoute.hidden" @click="$router.go(-1)">返回</el-button>
     </el-breadcrumb>
     <transition name="move" mode="out-in">
       <div id="content-body">
@@ -22,9 +23,25 @@ export default {
     vHeader,
     vSidebar
   },
+  methods: {
+    getCurrentRoute(routes) {
+      const route = routes.find(x => x.path === this.$route.path || x.name === this.$route.name)
+      if (route) return route
+      for (let r of routes) {
+        if (r.children && r.children.length) {
+          const route2 = this.getCurrentRoute(r.children)
+          if (route2) return route2
+        }
+      }
+      return undefined
+    }
+  },
   computed: {
     menuName() {
       return this.$route.name
+    },
+    currentRoute() {
+      return this.getCurrentRoute(this.$router.options.routes)
     },
     parentMenuName() {
       const routes = this.$router.options.routes.filter(x => !x.hidden)
@@ -39,6 +56,7 @@ export default {
   mounted() {
   }
 }
+
 </script>
 
 <style>
@@ -50,7 +68,7 @@ export default {
   display: block;
   width: auto;
   height: 36px;
-  line-height: 38px;
+  line-height: 38px !important;
   padding: 0 15px;
   background: #f5f7f9;
   border-bottom: 1px solid #eee;
@@ -67,7 +85,7 @@ export default {
   right: 0;
   top: 96px;
   bottom: 0;
-  padding: 15px;
+  padding: 15px 15px 30px;
   width: auto;
   box-sizing: border-box;
   overflow-y: scroll;
