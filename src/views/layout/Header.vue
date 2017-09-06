@@ -4,7 +4,7 @@
     <div class="user-info">
       <el-dropdown trigger="click" @command="handleCommand">
         <a class="el-dropdown-link">
-          {{username}}
+          {{name}}
         </a>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="loginout">退出</el-dropdown-item>
@@ -21,46 +21,35 @@ export default {
       name: 'Admin'
     }
   },
-  computed: {
-    username() {
-      let username = localStorage.getItem('username')
-      return username || this.name
-    }
-  },
   methods: {
     handleCommand(command) {
       if (command === 'loginout') {
-        localStorage.clear()
-        this.$router.push('/login')
+        this.$router.replace('/login')
       }
     }
   }
 }
 </script>
 
-<style scoped>
-.header {
+<style lang="stylus" scoped>
+.header
   position: relative;
   box-sizing: border-box;
   width: 100%;
-  height: 60px;
-  line-height: 60px;
+  height: 50px;
+  line-height: 50px;
   color: #fff;
   background-color: #242f42;
-}
 
-.logo {
+.logo
   margin-left: 20px;
-}
 
-.user-info {
+.user-info
   float: right;
   margin-right: 20px;
-}
 
-.user-info .el-dropdown-link {
+.user-info .el-dropdown-link
   padding: 15px;
   color: #fff;
   cursor: pointer;
-}
 </style>

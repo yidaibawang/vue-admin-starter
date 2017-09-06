@@ -15,7 +15,7 @@
             <i :class="'icon-'+child.icon"></i> {{child.name}}
           </el-menu-item>
         </template>
-  
+
       </template>
     </el-menu>
   </div>
@@ -32,21 +32,18 @@ export default {
 
 </script>
 
-<style scoped>
-.sidebar {
+<style lang="stylus" scoped>
+.sidebar
   position: absolute;
   width: 250px;
   left: 0;
-  top: 60px;
+  top: 50px;
   bottom: 0;
-  background: #2E363F;
-}
+  background: #324157;
 
-.sidebar>ul {
+.sidebar>ul
   height: 100%;
-}
 
-.el-menu [class^=icon] {
+.el-menu [class^=icon]
   margin-right: 8px;
-}
 </style>

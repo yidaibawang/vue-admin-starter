@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Layout from '@/components/Layout'
+import Layout from '@/views/layout/Layout'
 
 Vue.use(Router)
 
@@ -20,14 +20,15 @@ export default new Router({
   routes: [
     { path: '/login', component: createView('Login'), hidden: true },
     createMenuRoutes([
-      { path: '/', component: createView('Home'), name: '控制面板', icon: 'home' },
-      { path: '/user', component: createView('User'), name: '用户管理', icon: 'people' }
+      { path: '/', component: createView('Demo'), name: '控制面板', icon: 'home' }
     ]),
     createMenuRoutes([
-      { path: '/system', component: createView('System'), name: '参数设置' }
-    ], '系统管理', 'equalizer'),
+      { path: '/demo1', component: createView('Demo'), name: '子菜单1' },
+      { path: '/demo2', component: createView('Demo'), name: '子菜单2' }
+    ], '测试菜单1', 'equalizer'),
     createMenuRoutes([
-      { path: '/data/roleType', component: createView('Home'), name: '用户角色' }
-    ], '数据字典', 'map')
+      { path: '/demo3', component: createView('Demo'), name: '子菜单3' },
+      { path: '/demo4', component: createView('Demo'), name: '子菜单4' }
+    ], '测试菜单2', 'map')
   ]
 })

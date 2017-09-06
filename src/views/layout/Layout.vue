@@ -59,10 +59,10 @@ export default {
 
 </script>
 
-<style>
-.el-breadcrumb {
+<style lang="stylus">
+.el-breadcrumb
   position: absolute;
-  top: 60px;
+  top: 50px;
   left: 250px;
   right: 0;
   display: block;
@@ -72,32 +72,19 @@ export default {
   padding: 0 15px;
   background: #f5f7f9;
   border-bottom: 1px solid #eee;
-}
 
-.el-breadcrumb__item__inner {
+.el-breadcrumb__item__inner
   color: #777 !important;
   cursor: unset !important;
-}
 
-#content-body {
+#content-body
   position: absolute;
   left: 250px;
   right: 0;
-  top: 96px;
+  top: 86px;
   bottom: 0;
   padding: 15px 15px 30px;
   width: auto;
   box-sizing: border-box;
   overflow-y: scroll;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: all .2s ease;
-}
-
-.fade-enter,
-.fade-leave-active {
-  opacity: 0;
-}
 </style>

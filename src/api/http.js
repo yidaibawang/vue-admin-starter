@@ -1,18 +1,25 @@
 import Vue from 'vue'
 import axios from 'axios'
-import config from '@/config'
-import store from '@/store'
+import NProgress from 'nprogress'
 
 const alert = msg => {
   Vue.prototype.$message.error(msg)
 }
 
-let loadingInstance
+// let loadingInstance
+// const showLoading = show => {
+//   if (show) {
+//     loadingInstance = Vue.prototype.$loading({ target: '#content-body', body: true })
+//   } else {
+//     loadingInstance && loadingInstance.close()
+//   }
+// }
+
 const showLoading = show => {
   if (show) {
-    loadingInstance = Vue.prototype.$loading({ target: '#content-body', body: true })
+    NProgress.start()
   } else {
-    loadingInstance && loadingInstance.close()
+    NProgress.done()
   }
 }
 
@@ -44,20 +51,14 @@ const handleResponseError = ({ status, data }) => {
 }
 
 const http = axios.create({
-  baseURL: config.apiRoot,
-  // timeout: config.timeout,
+  baseURL: '/api',
+  timeout: 10000,
   headers: { 'Accept': 'application/json' }
 })
 
 http.interceptors.request.use(
   config => {
     showLoading(true)
-
-    const token = store.getToken()
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
-    }
-
     return config
   },
   error => {
